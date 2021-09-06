@@ -457,7 +457,7 @@ class boipa
         $post_data['customerAddressCity'] = html_entity_decode($order->customer['city'], ENT_QUOTES, 'UTF-8');
         $post_data['customerAddressPostalCode'] = html_entity_decode($order->customer['postcode'], ENT_QUOTES, 'UTF-8');
         $post_data['customerAddressCountry'] = html_entity_decode($order->customer['country']['iso_code_2'], ENT_QUOTES, 'UTF-8');
-        $post_data['customerAddressState'] = html_entity_decode($order->customer['state'], ENT_QUOTES, 'UTF-8');
+        // $post_data['customerAddressState'] = html_entity_decode($order->customer['state'], ENT_QUOTES, 'UTF-8');
         $post_data['customerAddressPhone'] = html_entity_decode($order->customer['telephone'], ENT_QUOTES, 'UTF-8');
         $post_data['merchantChallengeInd'] = '01';
         $post_data['merchantDecReqInd'] = 'N';
@@ -719,7 +719,8 @@ class boipa
                         'date_added' => 'now()',
                         'customer_notified' => (SEND_EMAILS == 'true') ? '1' : '0',
                         'comments' => $comments);
-                    tep_db_perform(TABLE_ORDERS_STATUS_HISTORY, $sql_data_array);                        
+                    tep_db_perform(TABLE_ORDERS_STATUS_HISTORY, $sql_data_array);
+                        
                     $gateway_order_array = array();
                     $gateway_order_array['order_id'] = $order_id;;
                     $gateway_order_array['merchant_tx_id'] = $merchant_tx_id;
