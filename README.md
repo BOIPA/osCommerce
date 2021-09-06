@@ -8,4 +8,4 @@ This plugin is provided for BOIPA merchants osCommerce 2.x.
 
 Got a question? Email ecommerce@boipa.com for development help.
 
-For instructions on how to install the plugin on Magento please go to our Wiki [here](https://github.com/BOIPA/osCommerce/wiki/Installation-of-BOIPA-Plugin-for-osCommerce).
+For instructions on how to install the plugin on osCommerce please go to our Wiki [here](https://github.com/BOIPA/osCommerce/wiki/Installation-of-BOIPA-Plugin-for-osCommerce).
