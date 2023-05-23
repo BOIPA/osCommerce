@@ -405,7 +405,7 @@ class boipa
      */
     function process_button() {
         global $order,$customer_id,$languages_id,$cart_boipa_ID;
-        if(empty($this->merchant_id) || empty($this->merchant_passwd) || empty($this->merchant_brand_id)){
+        if(empty($this->merchant_id) || empty($this->merchant_passwd)){
             $payment_error_return = 'payment_error=' . $this->code . '&code=' . 'C';
             ini_set('display_errors', 'Off');
             error_reporting(0);
@@ -457,8 +457,7 @@ class boipa
         $post_data['customerAddressCity'] = html_entity_decode($order->customer['city'], ENT_QUOTES, 'UTF-8');
         $post_data['customerAddressPostalCode'] = html_entity_decode($order->customer['postcode'], ENT_QUOTES, 'UTF-8');
         $post_data['customerAddressCountry'] = html_entity_decode($order->customer['country']['iso_code_2'], ENT_QUOTES, 'UTF-8');
-        // $post_data['customerAddressState'] = html_entity_decode($order->customer['state'], ENT_QUOTES, 'UTF-8');
-        $post_data['customerAddressPhone'] = html_entity_decode($order->customer['telephone'], ENT_QUOTES, 'UTF-8');
+//         $post_data['customerAddressState'] = substr(html_entity_decode($order->customer['state'], ENT_QUOTES, 'UTF-8'),0,3);
         $post_data['merchantChallengeInd'] = '01';
         $post_data['merchantDecReqInd'] = 'N';
         try {
@@ -494,11 +493,9 @@ class boipa
             customerIPAddress($post_data['customerIPAddress'])->
             customerAddressHouseName($post_data['customerAddressHouseName'])->
             customerAddressStreet($post_data['customerAddressStreet'])->
-            customerAddressCity($post_data['customerAddressHouseName'])->
+            customerAddressCity($post_data['customerAddressCity'])->
             customerAddressPostalCode($post_data['customerAddressPostalCode'])->
             customerAddressCountry($post_data['customerAddressCountry'])->
-            customerAddressState($post_data['customerAddressState'])->
-            customerAddressPhone($post_data['customerAddressPhone'])->
             merchantChallengeInd($post_data['merchantChallengeInd'])->
             merchantDecReqInd($post_data['merchantDecReqInd']);
             $res = $payments_request->token();
@@ -719,8 +716,7 @@ class boipa
                         'date_added' => 'now()',
                         'customer_notified' => (SEND_EMAILS == 'true') ? '1' : '0',
                         'comments' => $comments);
-                    tep_db_perform(TABLE_ORDERS_STATUS_HISTORY, $sql_data_array);
-                        
+                    tep_db_perform(TABLE_ORDERS_STATUS_HISTORY, $sql_data_array);                        
                     $gateway_order_array = array();
                     $gateway_order_array['order_id'] = $order_id;;
                     $gateway_order_array['merchant_tx_id'] = $merchant_tx_id;
